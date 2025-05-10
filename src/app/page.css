@@ -39,3 +39,47 @@ canvas{
   z-index: 0;
   pointer-events: none;
 }
+
+
+.bg-nebula {
+  /* Dark base with subtle radial gradient */
+  background: radial-gradient(circle at 50% 50%, rgba(20, 20, 40, 1) 0%, rgba(10, 10, 20, 1) 100%),
+    /* Cloudy purple/blue nebula effect */
+    radial-gradient(circle at 30% 40%, rgba(90, 50, 180, 0.2) 0%, rgba(90, 50, 180, 0) 35%),
+    radial-gradient(circle at 70% 60%, rgba(60, 120, 200, 0.2) 0%, rgba(60, 120, 200, 0) 40%),
+    /* Subtle cloudy red/orange accents */
+    radial-gradient(circle at 20% 70%, rgba(200, 70, 120, 0.15) 0%, rgba(200, 70, 120, 0) 30%),
+    /* Distant stars effect */
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.95) 100%);
+
+  /* Add some noise texture for a more realistic cloudy effect */
+  background-blend-mode: screen, screen, screen, multiply;
+
+  /* Add subtle animation */
+  animation: nebula-drift 60s ease infinite alternate;
+}
+
+@keyframes nebula-drift {
+  0% {
+    background-position: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
+  }
+  100% {
+    background-position: 0% 0%, 5% 10%, -5% -10%, 10% -5%, 0% 0%;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.gradient-text {
+  animation: gradient 8s ease infinite;
+}
