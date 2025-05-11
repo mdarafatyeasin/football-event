@@ -187,7 +187,7 @@ const Page = () => {
             GAME MODES
           </h2>
           <p className="text-base text-gray-300 leading-relaxed hover:text-white transition-colors duration-300 text-right">
-            We've reimagined the traditional rulebook. Experience 1v1 penalties, Chaos Mode, Power Plays, and dynamic
+            We have reimagined the traditional rulebook. Experience 1v1 penalties, Chaos Mode, Power Plays, and dynamic
             scoring that unlocks new players. Every match offers a unique challenge.
           </p>
         </motion.div>
