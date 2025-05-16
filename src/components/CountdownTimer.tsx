@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Calendar, Trophy } from "lucide-react"
+import Link from "next/link"
 
 type TimeLeft = {
   days: number
@@ -73,9 +74,9 @@ export default function CountdownTimer() {
       </div>
 
       <div className="mt-12 flex flex-col md:flex-row items-center justify-center gap-6">
-        <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
+        <Link href="/v2/reg" className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-full transition-all transform hover:scale-105">
           REGISTER NOW
-        </button>
+        </Link>
         <button className="bg-transparent border-2 border-white/30 hover:border-white text-white font-bold py-3 px-8 rounded-full transition-all">
           EVENT DETAILS
         </button>

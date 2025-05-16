@@ -137,7 +137,7 @@ export default function ContentBox() {
               </div>
             </div>
             <Link
-              href="/v0/red"
+              href="/v2/reg"
               className="px-6 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-500 transition-all whitespace-nowrap text-center"
             >
               Register Now
