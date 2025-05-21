@@ -1,10 +1,53 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useRef } from "react"
 import Link from "next/link"
-import { ArrowLeft, Calendar, CheckCircle, Shield, Trophy, Users, Upload, AlertCircle, Loader2, Lock } from "lucide-react"
+import {
+  ArrowLeft,
+  Calendar,
+  CheckCircle,
+  Shield,
+  Trophy,
+  Users,
+  Upload,
+  AlertCircle,
+  Loader2,
+  Lock,
+} from "lucide-react"
 import { useMutation } from "convex/react"
 import { api } from "../../../../convex/_generated/api"
+
+// Define types for our form data
+type Player = {
+  fullName: string
+  age: string
+  contactNumber: string
+  email: string
+  address: string
+}
+
+type FormData = {
+  teamName: string
+  players: Player[]
+  payment: {
+    transactionId: string
+    screenshot: File | null
+  }
+  termsAccepted: boolean
+}
+
+// Define type for registration data to be sent to Convex
+type RegistrationData = {
+  teamName: string
+  players: Player[]
+  payment: {
+    transactionId: string
+    screenshotUrl: string
+  }
+  termsAccepted: boolean
+}
 
 export default function RegistrationPage() {
   // Convex mutation
@@ -22,10 +65,10 @@ export default function RegistrationPage() {
   const [submitSuccess, setSubmitSuccess] = useState(false)
 
   // Form data state
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     teamName: "",
     players: Array(8)
-      .fill()
+      .fill(null)
       .map(() => ({
         fullName: "",
         age: "",
@@ -43,29 +86,34 @@ export default function RegistrationPage() {
   // File upload state
   const [fileError, setFileError] = useState("")
   const [fileUploaded, setFileUploaded] = useState(false)
-  const fileInputRef = useRef(null)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   // Handle form input changes
-  const handleInputChange = (section, field, value, index = null) => {
+  const handleInputChange = (
+    section: "team" | "player" | "payment" | "terms",
+    field: string | null,
+    value: string | boolean,
+    index: number | null = null,
+  ) => {
     setFormData((prev) => {
       if (section === "team") {
-        return { ...prev, teamName: value }
-      } else if (section === "player" && index !== null) {
+        return { ...prev, teamName: value as string }
+      } else if (section === "player" && index !== null && field !== null) {
         const updatedPlayers = [...prev.players]
         updatedPlayers[index] = { ...updatedPlayers[index], [field]: value }
         return { ...prev, players: updatedPlayers }
-      } else if (section === "payment") {
+      } else if (section === "payment" && field !== null) {
         return { ...prev, payment: { ...prev.payment, [field]: value } }
       } else if (section === "terms") {
-        return { ...prev, termsAccepted: value }
+        return { ...prev, termsAccepted: value as boolean }
       }
       return prev
     })
   }
 
   // Handle file upload
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0]
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
     setFileError("")
 
     if (!file) {
@@ -119,7 +167,7 @@ export default function RegistrationPage() {
       const screenshotUrl = formData.payment.screenshot.name
 
       // Prepare data for Convex
-      const registrationData = {
+      const registrationData: RegistrationData = {
         teamName: formData.teamName,
         players: formData.players.filter((player) => player.fullName.trim() !== ""), // Filter out empty players
         payment: {
@@ -141,7 +189,7 @@ export default function RegistrationPage() {
       alert("Registration submitted successfully!")
     } catch (error) {
       console.error("Registration error:", error)
-      setSubmitError(error.message || "Failed to submit registration. Please try again.")
+      setSubmitError(error instanceof Error ? error.message : "Failed to submit registration. Please try again.")
     } finally {
       setIsSubmitting(false)
     }
@@ -255,7 +303,7 @@ export default function RegistrationPage() {
   }
 
   // Player form template (reused for all players)
-  const PlayerForm = ({ playerNumber, isOptional = false }) => {
+  const PlayerForm = ({ playerNumber, isOptional = false }: { playerNumber: number; isOptional?: boolean }) => {
     const playerIndex = playerNumber - 1
     const player = formData.players[playerIndex]
 
@@ -587,7 +635,7 @@ export default function RegistrationPage() {
                           </label>
                           <div
                             className={`border-2 border-dashed ${fileError ? "border-red-500" : "border-gray-700"} rounded-lg p-4 text-center cursor-pointer`}
-                            onClick={() => fileInputRef.current?.click()}
+                            onClick={() => fileInputRef.current && fileInputRef.current.click()}
                           >
                             <div className="flex flex-col items-center justify-center gap-2">
                               {fileUploaded ? (

@@ -273,7 +273,7 @@ export default function RulesPage() {
                   <div className="space-y-2 pl-4 border-l-2 border-gray-700">
                     <p className="text-gray-300">Only one player from each team plays.</p>
                     <p className="text-gray-300">
-                      Players can't leave their own half (except into the center circle when attacking).
+                      Players cant leave their own half (except into the center circle when attacking).
                     </p>
                     <p className="text-gray-300">Attack must be completed within 15 seconds.</p>
                     <p className="text-gray-300">Ball must stay in motion; if it stops, possession changes.</p>
@@ -291,16 +291,16 @@ export default function RulesPage() {
                   </div>
                   <div className="space-y-2 pl-4 border-l-2 border-gray-700">
                     <p className="text-gray-300">
-                      Once the ball enters the opponent's half, it cannot be passed back to the team's own half.
+                      Once the ball enters the opponents half, it cannot be passed back to the teams own half.
                     </p>
                     <p className="text-gray-300">
                       Violation = direct free kick at the point of contact or penalty area line (if goalkeeper).
                     </p>
                     <p className="text-gray-300">
-                      If the ball is played out or leads to a corner in the team's own half, a direct free kick is
+                      If the ball is played out or leads to a corner in the teams own half, a direct free kick is
                       awarded from the center of the penalty area.
                     </p>
-                    <p className="text-gray-300">If it's the third corner, the penalty applies instead.</p>
+                    <p className="text-gray-300">If its the third corner, the penalty applies instead.</p>
                   </div>
                 </div>
 
@@ -314,7 +314,7 @@ export default function RulesPage() {
                   <div className="space-y-2 pl-4 border-l-2 border-gray-700">
                     <p className="text-gray-300">Only 3 players from each team are allowed on the pitch.</p>
                     <p className="text-gray-300">Teams choose which 3 players to send in.</p>
-                    <p className="text-gray-300">The goalkeeper can be included or left out—it's up to the team.</p>
+                    <p className="text-gray-300">The goalkeeper can be included or left out its up to the team.</p>
                     <p className="text-gray-300">Game continues with 3v3 until full time.</p>
                   </div>
                 </div>
@@ -326,7 +326,7 @@ export default function RulesPage() {
           <div className="bg-gradient-to-r from-red-900/20 to-gray-900/40 border border-red-900/30 rounded-xl p-8 backdrop-blur-sm text-center">
             <h3 className="text-2xl font-semibold text-white mb-4">Ready to Play by These Rules?</h3>
             <p className="text-gray-300 max-w-2xl mx-auto mb-6">
-              HyperBall's unique rules and game modes create an exciting, fast-paced tournament experience unlike any
+              HyperBalls unique rules and game modes create an exciting, fast-paced tournament experience unlike any
               other. Register your team now and test your skills under these dynamic conditions.
             </p>
             <Link
