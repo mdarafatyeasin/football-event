@@ -20,7 +20,7 @@ export default function CountdownTimer() {
   })
 
   useEffect(() => {
-    const targetDate = new Date("May 20, 2025 00:00:00").getTime()
+    const targetDate = new Date("May 18, 2025 00:00:00").getTime()
 
     const calculateTimeLeft = () => {
       const now = new Date().getTime()
@@ -46,7 +46,7 @@ export default function CountdownTimer() {
     <div className="w-full max-w-4xl mx-auto px-4 py-8">
       <div className="text-center mb-8">
         <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
-          FOOTBALL <span className="text-red-600">CHAMPIONSHIP</span>
+          HYPER BALL <span className="text-red-600">CHAMPIONSHIP</span>
         </h1>
         <div className="flex items-center justify-center gap-2 text-white/80">
           <Calendar className="h-5 w-5 text-red-500" />

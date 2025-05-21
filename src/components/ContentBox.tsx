@@ -1,4 +1,4 @@
-import { Zap, Trophy, Users, ArrowRight, Calendar, ChevronRight } from "lucide-react"
+import { Zap, Trophy, Users, ArrowRight, Calendar, Medal, Camera } from "lucide-react"
 import Link from "next/link"
 
 export default function ContentBox() {
@@ -24,7 +24,7 @@ export default function ContentBox() {
         </div>
 
         {/* Improved card grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           {/* Card 1 */}
           <div className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-xl p-8 hover:border-red-800/50 transition-all duration-300 shadow-lg hover:shadow-red-900/5">
             <div className="flex items-center gap-4 mb-6">
@@ -35,8 +35,8 @@ export default function ContentBox() {
             </div>
             <p className="text-gray-300 leading-relaxed">
               HyperBall is an open 5-a-side futsal tournament for players aged 16+. Built for high energy and
-              competitive vibes, its more than just a game — its a stage to showcase your skills, push your limits,
-              and make a mark. Whether youre a regular baller or a weekend warrior, this is your moment.
+              competitive vibes, its more than just a game — its a stage to showcase your skills, push your limits, and
+              make a mark. Whether youre a regular baller or a weekend warrior, this is your moment.
             </p>
           </div>
 
@@ -49,8 +49,8 @@ export default function ContentBox() {
               <h2 className="text-2xl font-semibold text-white tracking-tight">Unique Rules & Game Modes</h2>
             </div>
             <p className="text-gray-300 leading-relaxed mb-6">
-              Were not sticking to the basics. HyperBall features custom rules like 3 corners = 1 penalty and wild
-              modes like Chaos Mode, Player+1, and Power Play. Every game is different. Every moment counts.
+              Were not sticking to the basics. HyperBall features custom rules like 3 corners = 1 penalty and wild modes
+              like Chaos Mode, Player+1, and Power Play. Every game is different. Every moment counts.
             </p>
             <button className="group px-6 py-2.5 border border-gray-700 text-gray-200 rounded-lg flex items-center gap-2 hover:bg-gray-800/50 hover:border-gray-600 transition-all text-sm font-medium">
               View Rulebook/Game Modes
@@ -58,7 +58,7 @@ export default function ContentBox() {
             </button>
           </div>
 
-          {/* Card 3 */}
+          {/* Card 3 - Prizes (Simplified) */}
           <div className="bg-gray-900/70 backdrop-blur-sm border border-gray-800 rounded-xl p-8 hover:border-red-800/50 transition-all duration-300 shadow-lg hover:shadow-red-900/5">
             <div className="flex items-center gap-4 mb-6">
               <div className="p-3 rounded-lg bg-gradient-to-br from-red-900/40 to-red-800/20 text-red-400 border border-red-900/30">
@@ -66,21 +66,19 @@ export default function ContentBox() {
               </div>
               <h2 className="text-2xl font-semibold text-white tracking-tight">Prizes, Trophies & More</h2>
             </div>
-            <p className="text-gray-300 leading-relaxed">
-              Winners and top performers walk away with big prize pools, trophies, medals, and exclusive goodies. From
-              MVP awards to custom kits — we make sure the grind pays off. Play hard, win harder.
+            <p className="text-gray-300 leading-relaxed mb-4">
+              Winners and top performers walk away with big prize pools, trophies, medals, and exclusive goodies. We
+              also award Man of the Match (MOM) trophies for standout performances in each game.
             </p>
-            <div className="mt-6 flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-300 flex items-center justify-center shadow-lg">
-                <Trophy className="h-4 w-4 text-yellow-900" />
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <Trophy className="h-4 w-4 text-red-400 mt-1 flex-shrink-0" />
+                <p className="text-gray-300 text-sm">Championship trophies and medals for top teams</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-gray-400 to-gray-300 flex items-center justify-center shadow-lg">
-                <Trophy className="h-4 w-4 text-gray-700" />
+              <div className="flex items-start gap-3">
+                <Camera className="h-4 w-4 text-red-400 mt-1 flex-shrink-0" />
+                <p className="text-gray-300 text-sm">Professional photos and videos provided after the tournament</p>
               </div>
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-amber-700 to-amber-500 flex items-center justify-center shadow-lg">
-                <Trophy className="h-4 w-4 text-amber-900" />
-              </div>
-              <span className="text-gray-400 text-sm ml-2">+ Cash Prizes</span>
             </div>
           </div>
 
@@ -103,79 +101,78 @@ export default function ContentBox() {
               >
                 REGISTER NOW
               </Link>
-              <button className="px-6 py-2.5 bg-gray-800/50 text-gray-300 rounded-lg font-medium hover:bg-gray-800 transition-all border border-gray-700 flex items-center justify-center gap-2">
-                <Calendar className="h-4 w-4" /> View Schedule
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Next tournament callout */}
-        <div className="mt-12 bg-gradient-to-r from-red-900/20 to-gray-900/40 border border-red-900/30 rounded-xl p-6 backdrop-blur-sm">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="p-3 rounded-full bg-red-500/20 text-red-400">
-                <Calendar className="h-6 w-6" />
-              </div>
-              <div>
-                <h3 className="text-lg font-medium text-white">Next Tournament</h3>
-                <p className="text-gray-300">June 15-16, 2025 • London Sports Center</p>
-              </div>
-            </div>
-            <div className="flex gap-4">
-              <div className="text-center px-4 py-2 bg-gray-800/70 rounded-lg border border-gray-700">
-                <span className="text-2xl font-bold text-white">24</span>
-                <p className="text-xs text-gray-400">Days</p>
-              </div>
-              <div className="text-center px-4 py-2 bg-gray-800/70 rounded-lg border border-gray-700">
-                <span className="text-2xl font-bold text-white">12</span>
-                <p className="text-xs text-gray-400">Hours</p>
-              </div>
-              <div className="text-center px-4 py-2 bg-gray-800/70 rounded-lg border border-gray-700">
-                <span className="text-2xl font-bold text-white">36</span>
-                <p className="text-xs text-gray-400">Minutes</p>
-              </div>
-            </div>
-            <Link
-              href="/v2/reg"
-              className="px-6 py-2.5 bg-red-600 text-white rounded-lg font-medium hover:bg-red-500 transition-all whitespace-nowrap text-center"
-            >
-              Register Now
-            </Link>
-          </div>
-        </div>
-
-        {/* Enhanced footer */}
-        <div className="mt-16 border-t border-gray-800/50 pt-8">
-          <div className="flex justify-between items-center flex-col md:flex-row gap-6">
-            <div>
-              <h2 className="text-xl font-bold text-white mb-2">
-                <span className="text-red-500">HYPER</span>BALL
-              </h2>
-              <p className="text-gray-400 text-sm">© 2025 HyperBall. All rights reserved.</p>
-            </div>
-            <div className="flex flex-col md:flex-row gap-8 md:items-center">
-              <div className="flex gap-6">
-                <a href="#" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
-                  About
-                </a>
-                <a href="#" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
-                  Contact
-                </a>
-                <a href="#" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
-                  Rules
-                </a>
-                <a href="#" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
-                  FAQ
-                </a>
-              </div>
-              <a
-                href="#"
-                className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium flex items-center gap-1 group"
+              <Link
+                href="/venue"
+                className="px-6 py-2.5 bg-gray-800/50 text-gray-300 rounded-lg font-medium hover:bg-gray-800 transition-all border border-gray-700 flex items-center justify-center gap-2"
               >
-                View all tournaments <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+                <Calendar className="h-4 w-4" /> View Schedule
+              </Link>
             </div>
+          </div>
+        </div>
+
+        {/* Prize Pool Section - Below the 4 boxes */}
+        <div className="mt-12 mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-white mb-2">Prize Pool</h2>
+            <div className="h-1 w-12 bg-gradient-to-r from-red-700 to-red-500 mx-auto mb-3 rounded-full"></div>
+            <p className="text-gray-300 text-sm max-w-2xl mx-auto">
+              Compete for glory and take home impressive cash prizes
+            </p>
+          </div>
+
+          {/* Prize cards in a visually attractive layout - SMALLER VERSION */}
+          <div className="flex flex-col md:flex-row gap-4 max-w-3xl mx-auto">
+            {/* 1st Place - Champions */}
+            <div className="flex-1 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-r from-yellow-500 to-yellow-300 flex items-center justify-center shadow-lg z-10 border-2 border-gray-900">
+                <Trophy className="h-4 w-4 text-yellow-900" />
+              </div>
+              <div className="bg-gradient-to-br from-yellow-900/30 to-yellow-800/10 border border-yellow-700/30 rounded-lg p-5 pt-8 text-center h-full">
+                <div className="mb-1">
+                  <span className="inline-block px-3 py-0.5 bg-yellow-900/40 rounded-full text-yellow-300 text-xs font-medium uppercase tracking-wider">
+                    Champions
+                  </span>
+                </div>
+                <h3 className="text-4xl font-bold text-white mb-1">₹30,000</h3>
+                <div className="w-8 h-0.5 bg-yellow-500/50 mx-auto mb-2 rounded-full"></div>
+                <p className="text-yellow-200/80 text-xs mb-3">First Place</p>
+                <div className="flex justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-yellow-800/30 to-yellow-700/10 rounded-lg flex items-center justify-center">
+                    <Trophy className="h-8 w-8 text-yellow-500" />
+                  </div>
+                </div>
+                <p className="text-yellow-200/80 text-xs mt-2">+ Championship Trophy</p>
+              </div>
+            </div>
+
+            {/* 2nd Place - Runners-up */}
+            <div className="flex-1 relative">
+              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 w-8 h-8 rounded-full bg-gradient-to-r from-gray-400 to-gray-300 flex items-center justify-center shadow-lg z-10 border-2 border-gray-900">
+                <Medal className="h-4 w-4 text-gray-700" />
+              </div>
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-800/20 border border-gray-700/50 rounded-lg p-5 pt-8 text-center h-full">
+                <div className="mb-1">
+                  <span className="inline-block px-3 py-0.5 bg-gray-800/80 rounded-full text-gray-300 text-xs font-medium uppercase tracking-wider">
+                    Runners-up
+                  </span>
+                </div>
+                <h3 className="text-4xl font-bold text-white mb-1">₹10,000</h3>
+                <div className="w-8 h-0.5 bg-gray-500/50 mx-auto mb-2 rounded-full"></div>
+                <p className="text-gray-400 text-xs mb-3">Second Place</p>
+                <div className="flex justify-center">
+                  <div className="w-16 h-16 bg-gradient-to-br from-gray-800/50 to-gray-700/20 rounded-lg flex items-center justify-center">
+                    <Medal className="h-8 w-8 text-gray-400" />
+                  </div>
+                </div>
+                <p className="text-gray-400 text-xs mt-2">+ Finalist Medals</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional prizes note */}
+          <div className="text-center mt-4">
+            <p className="text-gray-400 text-xs">Plus Man of the Match trophies awarded after each game</p>
           </div>
         </div>
       </div>

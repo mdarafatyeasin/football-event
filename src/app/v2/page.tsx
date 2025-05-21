@@ -3,6 +3,7 @@ import "../../app/page.css"
 import Banner from "../../components/Banner"
 import Navbar from "@/components/Navbar"
 import ContentBox from "@/components/ContentBox"
+import Gallery from "@/components/Gallery"
 
 const Page = () => {
   return (
@@ -11,6 +12,7 @@ const Page = () => {
       <Banner/>
       {/* Content Section */}
       <ContentBox/>
+      <Gallery/>
     </div>
   )
 }
