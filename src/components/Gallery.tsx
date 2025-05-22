@@ -217,7 +217,7 @@ export default function Gallery() {
             Join us at this amazing venue for the next HyperBall tournament. Register your team now to secure your spot.
           </p>
           <Link
-            href="/v0/red"
+            href="/v2/reg"
             className="inline-block px-6 py-3 bg-gradient-to-r from-red-700 to-red-600 text-white rounded-lg font-medium hover:from-red-600 hover:to-red-500 transition-all shadow-lg shadow-red-900/20 hover:shadow-red-900/30"
           >
             Register Your Team
@@ -237,13 +237,13 @@ export default function Gallery() {
               <Link href="/" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
                 Home
               </Link>
-              <Link href="/rules" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
+              <Link href="/v2/rules" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
                 Rules
               </Link>
-              <Link href="/venue" className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium">
+              <Link href="/v2/venue" className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium">
                 Venue
               </Link>
-              <Link href="/v0/red" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
+              <Link href="/v2/reg" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
                 Register
               </Link>
             </div>

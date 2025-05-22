@@ -46,7 +46,7 @@ const Banner = () => {
 
             <div className="flex gap-5 justify-center lg:justify-start">
               {/* Register button - more attractive */}
-              <Link href="/register" className="relative group">
+              <Link href="/v2/reg" className="relative group">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-red-600 to-yellow-600 rounded-lg blur opacity-60 group-hover:opacity-100 transition duration-200"></div>
                 <button className="relative px-7 py-3 bg-gradient-to-br from-red-700 to-red-600 text-white rounded-lg font-medium shadow-lg flex items-center gap-2">
                   <span className="text-base font-bold tracking-wide">REGISTER</span>

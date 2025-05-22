@@ -70,10 +70,10 @@ export default function ContentBox() {
               Player+1, and Power Play. Every game is different. Every moment
               counts.
             </p>
-            <button className="group px-6 py-2.5 border border-gray-700 text-gray-200 rounded-lg flex items-center gap-2 hover:bg-gray-800/50 hover:border-gray-600 transition-all text-sm font-medium">
+            <Link href="/v2/rules" className="group w-64 px-6 py-2.5 border border-gray-700 text-gray-200 rounded-lg flex items-center gap-2 hover:bg-gray-800/50 hover:border-gray-600 transition-all text-sm font-medium">
               View Rulebook/Game Modes
               <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-            </button>
+            </Link>
           </div>
 
           {/* Card 3 - Prizes (Simplified) */}
@@ -130,7 +130,7 @@ export default function ContentBox() {
                 REGISTER NOW
               </Link>
               <Link
-                href="/venue"
+                href="/v2/venue"
                 className="px-6 py-2.5 bg-gray-800/50 text-gray-300 rounded-lg font-medium hover:bg-gray-800 transition-all border border-gray-700 flex items-center justify-center gap-2"
               >
                 <Calendar className="h-4 w-4" /> View Schedule

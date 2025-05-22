@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
 import {
   ArrowLeft,
@@ -49,6 +49,22 @@ type RegistrationData = {
   termsAccepted: boolean
 }
 
+// Define types for form refs
+type FormRefs = {
+  teamName: HTMLInputElement | null
+  players: Array<{
+    fullName: HTMLInputElement | null
+    age: HTMLInputElement | null
+    contactNumber: HTMLInputElement | null
+    email: HTMLInputElement | null
+    address: HTMLTextAreaElement | null
+  }>
+  payment: {
+    transactionId: HTMLInputElement | null
+  }
+  terms: HTMLInputElement | null
+}
+
 export default function RegistrationPage() {
   // Convex mutation
   const CreateRegistration = useMutation(api.createRegistration.createRegistration)
@@ -88,27 +104,55 @@ export default function RegistrationPage() {
   const [fileUploaded, setFileUploaded] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
-  // Handle form input changes
-  const handleInputChange = (
-    section: "team" | "player" | "payment" | "terms",
-    field: string | null,
-    value: string | boolean,
-    index: number | null = null,
-  ) => {
-    setFormData((prev) => {
-      if (section === "team") {
-        return { ...prev, teamName: value as string }
-      } else if (section === "player" && index !== null && field !== null) {
-        const updatedPlayers = [...prev.players]
-        updatedPlayers[index] = { ...updatedPlayers[index], [field]: value }
-        return { ...prev, players: updatedPlayers }
-      } else if (section === "payment" && field !== null) {
-        return { ...prev, payment: { ...prev.payment, [field]: value } }
-      } else if (section === "terms") {
-        return { ...prev, termsAccepted: value as boolean }
-      }
-      return prev
-    })
+  // Create refs for all form inputs
+  const formRefs = useRef<FormRefs>({
+    teamName: null,
+    players: Array(8)
+      .fill(null)
+      .map(() => ({
+        fullName: null,
+        age: null,
+        contactNumber: null,
+        email: null,
+        address: null,
+      })),
+    payment: {
+      transactionId: null,
+    },
+    terms: null,
+  })
+
+  // Function to collect all form data from refs before submission
+  const collectFormData = () => {
+    const refs = formRefs.current
+
+    // Get team name
+    const teamName = refs.teamName?.value || ""
+
+    // Get player data
+    const players = refs.players.map((playerRefs) => ({
+      fullName: playerRefs.fullName?.value || "",
+      age: playerRefs.age?.value || "",
+      contactNumber: playerRefs.contactNumber?.value || "",
+      email: playerRefs.email?.value || "",
+      address: playerRefs.address?.value || "",
+    }))
+
+    // Get payment data
+    const transactionId = refs.payment.transactionId?.value || ""
+
+    // Get terms acceptance
+    const termsAccepted = refs.terms?.checked || false
+
+    return {
+      teamName,
+      players,
+      payment: {
+        transactionId,
+        screenshot: formData.payment.screenshot, // Keep the file from state
+      },
+      termsAccepted,
+    }
   }
 
   // Handle file upload
@@ -150,11 +194,17 @@ export default function RegistrationPage() {
     setSubmitError("")
     setSubmitSuccess(false)
 
+    // Collect current form data from refs
+    const currentFormData = collectFormData()
+
+    // Update form data state with current values
+    setFormData(currentFormData)
+
     // Log all form data to console
-    console.log("Form Data:", formData)
+    console.log("Form Data:", currentFormData)
 
     // Check if file is uploaded
-    if (!formData.payment.screenshot) {
+    if (!currentFormData.payment.screenshot) {
       setFileError("Please upload a payment screenshot")
       return
     }
@@ -164,17 +214,17 @@ export default function RegistrationPage() {
 
       // In a real app, you would upload the file to storage and get a URL
       // For now, we'll just use the file name as a placeholder
-      const screenshotUrl = formData.payment.screenshot.name
+      const screenshotUrl = currentFormData.payment.screenshot.name
 
       // Prepare data for Convex
       const registrationData: RegistrationData = {
-        teamName: formData.teamName,
-        players: formData.players.filter((player) => player.fullName.trim() !== ""), // Filter out empty players
+        teamName: currentFormData.teamName,
+        players: currentFormData.players.filter((player) => player.fullName.trim() !== ""), // Filter out empty players
         payment: {
-          transactionId: formData.payment.transactionId,
+          transactionId: currentFormData.payment.transactionId,
           screenshotUrl: screenshotUrl,
         },
-        termsAccepted: formData.termsAccepted,
+        termsAccepted: currentFormData.termsAccepted,
       }
 
       // Submit to Convex
@@ -209,6 +259,10 @@ export default function RegistrationPage() {
 
   // Handle next step
   const handleNextStep = () => {
+    // Collect current form data before moving to next step
+    const currentFormData = collectFormData()
+    setFormData(currentFormData)
+
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1)
       window.scrollTo(0, 0)
@@ -217,6 +271,10 @@ export default function RegistrationPage() {
 
   // Handle previous step
   const handlePrevStep = () => {
+    // Collect current form data before moving to previous step
+    const currentFormData = collectFormData()
+    setFormData(currentFormData)
+
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1)
       window.scrollTo(0, 0)
@@ -228,7 +286,7 @@ export default function RegistrationPage() {
     // Create a dummy file for testing
     const dummyFile = new File(["dummy content"], "payment_screenshot.jpg", { type: "image/jpeg" })
 
-    setFormData({
+    const dummyData = {
       teamName: "Red Dragons FC",
       players: [
         {
@@ -293,14 +351,49 @@ export default function RegistrationPage() {
         screenshot: dummyFile,
       },
       termsAccepted: true,
-    })
+    }
+
+    setFormData(dummyData)
 
     // Set file uploaded state to true
     setFileUploaded(true)
 
     // Force registration to be open for testing
     setIsRegistrationOpen(true)
+
+    // Update all form fields with the dummy data
+    // This will happen on the next render
   }
+
+  // Update form fields when formData changes (for dummy data loading)
+  useEffect(() => {
+    const refs = formRefs.current
+
+    // Update team name
+    if (refs.teamName) {
+      refs.teamName.value = formData.teamName
+    }
+
+    // Update player fields
+    formData.players.forEach((player, index) => {
+      const playerRefs = refs.players[index]
+      if (playerRefs.fullName) playerRefs.fullName.value = player.fullName
+      if (playerRefs.age) playerRefs.age.value = player.age
+      if (playerRefs.contactNumber) playerRefs.contactNumber.value = player.contactNumber
+      if (playerRefs.email) playerRefs.email.value = player.email
+      if (playerRefs.address) playerRefs.address.value = player.address
+    })
+
+    // Update payment transaction ID
+    if (refs.payment.transactionId) {
+      refs.payment.transactionId.value = formData.payment.transactionId
+    }
+
+    // Update terms checkbox
+    if (refs.terms) {
+      refs.terms.checked = formData.termsAccepted
+    }
+  }, [formData])
 
   // Player form template (reused for all players)
   const PlayerForm = ({ playerNumber, isOptional = false }: { playerNumber: number; isOptional?: boolean }) => {
@@ -322,12 +415,16 @@ export default function RegistrationPage() {
             Full Name {!isOptional && <span className="text-red-400">*</span>}
           </label>
           <input
+            ref={(el) => {
+              if (formRefs.current.players[playerIndex]) {
+                formRefs.current.players[playerIndex].fullName = el
+              }
+            }}
             type="text"
             placeholder="Enter full name"
             className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
             disabled={!isRegistrationOpen}
-            value={player.fullName}
-            onChange={(e) => handleInputChange("player", "fullName", e.target.value, playerIndex)}
+            defaultValue={player.fullName}
             required={!isOptional}
           />
         </div>
@@ -335,13 +432,17 @@ export default function RegistrationPage() {
         <div>
           <label className="block text-white mb-2">Age {!isOptional && <span className="text-red-400">*</span>}</label>
           <input
+            ref={(el) => {
+              if (formRefs.current.players[playerIndex]) {
+                formRefs.current.players[playerIndex].age = el
+              }
+            }}
             type="number"
             min="16"
             placeholder="Must be 16+"
             className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
             disabled={!isRegistrationOpen}
-            value={player.age}
-            onChange={(e) => handleInputChange("player", "age", e.target.value, playerIndex)}
+            defaultValue={player.age}
             required={!isOptional}
           />
         </div>
@@ -352,12 +453,16 @@ export default function RegistrationPage() {
               Contact Number {!isOptional && <span className="text-red-400">*</span>}
             </label>
             <input
+              ref={(el) => {
+                if (formRefs.current.players[playerIndex]) {
+                  formRefs.current.players[playerIndex].contactNumber = el
+                }
+              }}
               type="tel"
               placeholder="Enter contact number"
               className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
               disabled={!isRegistrationOpen}
-              value={player.contactNumber}
-              onChange={(e) => handleInputChange("player", "contactNumber", e.target.value, playerIndex)}
+              defaultValue={player.contactNumber}
               required={!isOptional}
             />
           </div>
@@ -367,12 +472,16 @@ export default function RegistrationPage() {
               Email ID {!isOptional && <span className="text-red-400">*</span>}
             </label>
             <input
+              ref={(el) => {
+                if (formRefs.current.players[playerIndex]) {
+                  formRefs.current.players[playerIndex].email = el
+                }
+              }}
               type="email"
               placeholder="Enter email address"
               className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
               disabled={!isRegistrationOpen}
-              value={player.email}
-              onChange={(e) => handleInputChange("player", "email", e.target.value, playerIndex)}
+              defaultValue={player.email}
               required={!isOptional}
             />
           </div>
@@ -383,12 +492,16 @@ export default function RegistrationPage() {
             Address {!isOptional && <span className="text-red-400">*</span>}
           </label>
           <textarea
+            ref={(el) => {
+              if (formRefs.current.players[playerIndex]) {
+                formRefs.current.players[playerIndex].address = el
+              }
+            }}
             rows={3}
             placeholder="Enter full address"
             className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
             disabled={!isRegistrationOpen}
-            value={player.address}
-            onChange={(e) => handleInputChange("player", "address", e.target.value, playerIndex)}
+            defaultValue={player.address}
             required={!isOptional}
           ></textarea>
         </div>
@@ -529,12 +642,14 @@ export default function RegistrationPage() {
                         Team Name <span className="text-red-400">*</span>
                       </label>
                       <input
+                        ref={(el) => {
+                          formRefs.current.teamName = el
+                        }}
                         type="text"
                         placeholder="Enter your team name"
                         className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
                         disabled={!isRegistrationOpen}
-                        value={formData.teamName}
-                        onChange={(e) => handleInputChange("team", null, e.target.value)}
+                        defaultValue={formData.teamName}
                         required
                       />
                     </div>
@@ -619,12 +734,14 @@ export default function RegistrationPage() {
                             Transaction ID <span className="text-red-400">*</span>
                           </label>
                           <input
+                            ref={(el) => {
+                              formRefs.current.payment.transactionId = el
+                            }}
                             type="text"
                             placeholder="Enter transaction ID"
                             className="w-full px-3 py-2 bg-gray-800/50 border border-gray-700 rounded-md text-white"
                             disabled={!isRegistrationOpen}
-                            value={formData.payment.transactionId}
-                            onChange={(e) => handleInputChange("payment", "transactionId", e.target.value)}
+                            defaultValue={formData.payment.transactionId}
                             required
                           />
                         </div>
@@ -670,12 +787,14 @@ export default function RegistrationPage() {
                     <div className="mt-6 pt-4 border-t border-gray-800">
                       <div className="flex items-center gap-2 mb-4">
                         <input
+                          ref={(el) => {
+                            formRefs.current.terms = el
+                          }}
                           type="checkbox"
                           id="terms"
                           className="w-4 h-4 bg-gray-800 border border-gray-700 rounded"
                           disabled={!isRegistrationOpen}
-                          checked={formData.termsAccepted}
-                          onChange={(e) => handleInputChange("terms", null, e.target.checked)}
+                          defaultChecked={formData.termsAccepted}
                           required
                         />
                         <label htmlFor="terms" className="text-gray-300 text-sm">
