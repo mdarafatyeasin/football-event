@@ -14,37 +14,37 @@ export default function Gallery() {
   // Gallery images with varied sizes and aspect ratios (6 images)
   const galleryImages = [
     {
-      src: "/placeholder.svg?height=600&width=800",
+      src: "/g/g1.jpg",
       alt: "HyperBall tournament action shot",
       caption: "Intense match during last year's tournament finals",
       size: "large", // large image (spans 3 columns and 2 rows)
     },
     {
-      src: "/placeholder.svg?height=600&width=600",
+      src: "/g/g2.jpg",
       alt: "Indoor futsal court",
       caption: "Our professional indoor futsal court with state-of-the-art facilities",
       size: "medium", // medium image (spans 3 columns, 1 row)
     },
     {
-      src: "/placeholder.svg?height=400&width=600",
+      src: "/g/g3.jpg",
       alt: "Team celebration",
       caption: "Winners celebrating with their trophy and medals",
       size: "medium", // medium image (spans 3 columns, 1 row)
     },
     {
-      src: "/placeholder.svg?height=800&width=600",
+      src: "/g/g4.jpg",
       alt: "Player in action",
       caption: "Skilled player showing off during the tournament",
       size: "tall", // tall image (spans 2 columns, 2 rows)
     },
     {
-      src: "/placeholder.svg?height=400&width=600",
+      src: "/g/g5.jpg",
       alt: "Tournament crowd",
       caption: "Enthusiastic crowd cheering during a match",
       size: "small", // small image (spans 2 columns, 1 row)
     },
     {
-      src: "/placeholder.svg?height=400&width=600",
+      src: "/g/g6.jpg",
       alt: "Trophy presentation",
       caption: "Trophy presentation ceremony from the previous tournament",
       size: "small", // small image (spans 2 columns, 1 row)
@@ -91,6 +91,8 @@ export default function Gallery() {
 
   return (
     <div className="min-h-screen relative">
+      {/* Subtle background pattern */}
+      
 
       <div className="max-w-6xl mx-auto px-4 py-12 relative z-10">
         {/* Header with back button */}
@@ -140,7 +142,7 @@ export default function Gallery() {
                 >
                   <div className="w-full h-full relative">
                     <Image
-                      src={image.src || "/placeholder.svg"}
+                      src={image.src || "/placeholder.svg?height=400&width=600"}
                       alt={image.alt}
                       fill
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
@@ -217,7 +219,7 @@ export default function Gallery() {
             Join us at this amazing venue for the next HyperBall tournament. Register your team now to secure your spot.
           </p>
           <Link
-            href="/v2/reg"
+            href="/registration"
             className="inline-block px-6 py-3 bg-gradient-to-r from-red-700 to-red-600 text-white rounded-lg font-medium hover:from-red-600 hover:to-red-500 transition-all shadow-lg shadow-red-900/20 hover:shadow-red-900/30"
           >
             Register Your Team
@@ -237,13 +239,16 @@ export default function Gallery() {
               <Link href="/" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
                 Home
               </Link>
-              <Link href="/v2/rules" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
+              <Link href="/rules" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
                 Rules
               </Link>
-              <Link href="/v2/venue" className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium">
+              <Link href="/venue" className="text-red-400 hover:text-red-300 transition-colors text-sm font-medium">
                 Venue
               </Link>
-              <Link href="/v2/reg" className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium">
+              <Link
+                href="/registration"
+                className="text-gray-300 hover:text-red-400 transition-colors text-sm font-medium"
+              >
                 Register
               </Link>
             </div>
@@ -289,7 +294,7 @@ export default function Gallery() {
           <div className="relative max-w-4xl max-h-[80vh] w-full" onClick={(e) => e.stopPropagation()}>
             <div className="relative aspect-video">
               <Image
-                src={galleryImages[currentImageIndex].src || "/placeholder.svg"}
+                src={galleryImages[currentImageIndex].src || "/placeholder.svg?height=600&width=800"}
                 alt={galleryImages[currentImageIndex].alt}
                 fill
                 className="object-contain"
