@@ -4,6 +4,7 @@ import type React from "react"
 
 import { useState, useRef, useEffect } from "react"
 import Link from "next/link"
+import QRscan from "../../../../public/payment.jpeg"
 import {
   ArrowLeft,
   Calendar,
@@ -18,6 +19,7 @@ import {
 } from "lucide-react"
 import { useMutation } from "convex/react"
 import { api } from "../../../../convex/_generated/api"
+import Image from "next/image"
 
 // Define types for our form data
 type Player = {
@@ -722,8 +724,9 @@ export default function RegistrationPage() {
                       <div className="text-center">
                         <h3 className="text-white font-medium mb-3">Payment QR Code</h3>
                         <div className="bg-white p-2 rounded-lg inline-block">
-                          <div className="w-40 h-40 bg-gray-200 flex items-center justify-center">
-                            <span className="text-gray-500 text-xs">QR Code Placeholder</span>
+                          <div className=" flex items-center justify-center">
+                            {/* <span className="text-gray-500 text-xs">QR Code Placeholder</span> */}
+                            <Image src={QRscan} alt="QR Code" />
                           </div>
                         </div>
                       </div>
@@ -874,7 +877,7 @@ export default function RegistrationPage() {
                   </div>
                   <div>
                     <h4 className="text-white font-medium">Tournament Starts</h4>
-                    <p className="text-gray-400 text-sm">June 15, 2025 • London Sports Center</p>
+                    <p className="text-gray-400 text-sm">June 12, 2025 </p>
                   </div>
                 </div>
               </div>
@@ -920,14 +923,14 @@ export default function RegistrationPage() {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="text-gray-400">Email:</span>
-                  <a href="mailto:info@hyperball.com" className="text-red-400 hover:text-red-300">
-                    info@hyperball.com
+                  <a href="mailto:chiruvarshithpeddisetty@gmail.com" className="text-red-400 hover:text-red-300">
+                   chiruvarshithpeddisetty@gmail.com
                   </a>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-gray-400">Phone:</span>
-                  <a href="tel:+441234567890" className="text-red-400 hover:text-red-300">
-                    +44 123 456 7890
+                  <a href="tel:9347190819" className="text-red-400 hover:text-red-300">
+                    9347190819
                   </a>
                 </div>
               </div>

@@ -345,6 +345,8 @@ export default function RulesPage() {
               <h2 className="text-xl font-bold text-white mb-2">
                 <span className="text-red-500">HYPER</span>BALL
               </h2>
+              <p className="text-gray-400 text-sm">Email: chiruvarshithpeddisetty@gmail.com</p>
+              <p className="text-gray-400 text-sm">Phone : 9347190819</p>
               <p className="text-gray-400 text-sm">© 2025 HyperBall. All rights reserved.</p>
             </div>
             <div className="flex gap-6">
